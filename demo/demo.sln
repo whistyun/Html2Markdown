@@ -14,7 +14,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.Skia.Wpf", "DemoApp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoApp.Skia.Gtk", "DemoApp\DemoApp.Skia.Gtk\DemoApp.Skia.Gtk.csproj", "{CCDEBDF8-1DDD-459A-8CEE-AB000BFC6120}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Html2Markdown", "..\src\Html2Markdown\Html2Markdown.csproj", "{D8A3212F-AEB3-4A65-9FD6-97EECC937756}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownFromHtml", "..\src\MarkdownFromHtml\MarkdownFromHtml.csproj", "{D8A3212F-AEB3-4A65-9FD6-97EECC937756}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

@@ -2,11 +2,11 @@
 
 Converts HTML to [Markdown](http://daringfireball.net/projects/markdown/syntax).
 
-![Html2Markdown](https://cloud.githubusercontent.com/assets/1049999/11505182/0480ad76-9841-11e5-8a62-126d4b7c03be.png)
+![MarkdownFromHtml](https://cloud.githubusercontent.com/assets/1049999/11505182/0480ad76-9841-11e5-8a62-126d4b7c03be.png)
 
 ## Documentation
 
-Fully navigable documentation available on [GitHub Pages](http://baynezy.github.io/Html2Markdown/)
+Fully navigable documentation available on [GitHub Pages](http://baynezy.github.io/MarkdownFromHtml/)
 
 ## Support
 
@@ -35,7 +35,7 @@ This project will currently convert the following HTML tags:-
 
 ## Installing via NuGet
 
-    Install-Package Html2Markdown
+    Install-Package MarkdownFromHtml
 
 ## Usage
 

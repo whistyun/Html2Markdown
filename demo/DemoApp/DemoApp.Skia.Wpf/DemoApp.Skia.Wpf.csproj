@@ -13,7 +13,7 @@
     <PackageReference Include="Markdig" Version="0.30.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Html2Markdown\Html2Markdown.csproj" />
+    <ProjectReference Include="..\..\..\src\MarkdownFromHtml\MarkdownFromHtml.csproj" />
   </ItemGroup>
   <ItemGroup>
     <UpToDateCheckInput Include="..\DemoApp.Shared\**\*.xaml" />

@@ -1,8 +1,6 @@
-# HTML2Markdown
+# MarkdownFromHtml
 
 Converts HTML to [Markdown](http://daringfireball.net/projects/markdown/syntax).
-
-![Html2Markdown](https://cloud.githubusercontent.com/assets/1049999/11505182/0480ad76-9841-11e5-8a62-126d4b7c03be.png)
 
 
 ## Support
@@ -67,8 +65,8 @@ var markdown = converter.ConvertFile(path);
 It can enable extension syntax; table, del(strikethrough), etc.
 
 ```cs
-// using Html2Markdown.Parsers;
-// using Html2Markdown.Parsers.MarkdigExtensions;
+// using MarkdownFromHtml.Parsers;
+// using MarkdownFromHtml.Parsers.MarkdigExtensions;
 
 var manager = new ReplaceManager();
 manager.Register(new GridTableParser());
@@ -79,7 +77,7 @@ ver converter = new Converter(manager);
 
 ## Try it
 
-If you can run WebAssembly, please see [demoapps](https://whistyun.github.io/Html2Markdown/demo/index.html).
+If you can run WebAssembly, please see [demoapps](https://whistyun.github.io/MarkdownFromHtml/demo/index.html).
 
 ![screenshot](docs/demo_shot.png)
 

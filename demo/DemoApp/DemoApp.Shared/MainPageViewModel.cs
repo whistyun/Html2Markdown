@@ -1,5 +1,5 @@
-﻿using Html2Markdown.Parsers;
-using Html2Markdown.Parsers.MarkdigExtensions;
+﻿using MarkdownFromHtml.Parsers;
+using MarkdownFromHtml.Parsers.MarkdigExtensions;
 using Markdig;
 using Markdig.Extensions.EmphasisExtras;
 using System;
@@ -87,9 +87,9 @@ namespace DemoApp
             }
         }
 
-        private Html2Markdown.Converter CreateConverter()
+        private MarkdownFromHtml.Converter CreateConverter()
         {
-            var manager = new Html2Markdown.ReplaceManager();
+            var manager = new MarkdownFromHtml.ReplaceManager();
 
             if (IsEnabledGridTable)
                 manager.Register(new GridTableParser());
@@ -127,7 +127,7 @@ namespace DemoApp
                     manager.Register(new CiteParser());
             }
 
-            return new Html2Markdown.Converter(manager);
+            return new MarkdownFromHtml.Converter(manager);
         }
 
         private MarkdownPipeline CreatePipeline()

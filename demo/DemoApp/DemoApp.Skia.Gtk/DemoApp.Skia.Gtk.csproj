@@ -24,7 +24,7 @@
     <PackageReference Include="Markdig" Version="0.30.2" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Html2Markdown\Html2Markdown.csproj" />
+    <ProjectReference Include="..\..\..\src\MarkdownFromHtml\MarkdownFromHtml.csproj" />
   </ItemGroup>
   <Import Project="..\DemoApp.Shared\DemoApp.Shared.projitems" Label="Shared" />
 </Project>
