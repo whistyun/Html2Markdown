@@ -23,7 +23,11 @@ namespace Html2Markdown.Parsers.MarkdigExtensions
                     .SkipComment()
                     .Filter(nd => string.Equals(nd.Name, "figcaption", StringComparison.OrdinalIgnoreCase));
 
-            var captionInline = manager.ParseJagging(contentList);
+            var captionInline = manager.ParseJagging(captionList.SelectMany(c => c.ChildNodes));
+
+            if (captionInline.Count() == 1 && captionInline.First() is Paragraph captionPara)
+                captionInline = captionPara.Inlines;
+
             if (captionInline.Any(nd => nd is IMdBlock or Linebreak))
                 return false;
 

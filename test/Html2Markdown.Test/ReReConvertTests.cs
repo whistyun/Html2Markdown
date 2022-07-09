@@ -141,8 +141,34 @@ namespace Html2Markdown.Test
             Assert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
         }
 
+        [Test]
+        public void FigureFooterAndCite()
+        {
+            var mdtxt = ReadText();
 
+            var htmltxt = MarkdownToHtml(mdtxt);
 
+            var manager = new ReplaceManager();
+            manager.Register(new CiteParser());
+            manager.Register(new DeletedParser());
+            manager.Register(new FigureParser());
+            manager.Register(new FooterParser());
+            manager.Register(new GridTableParser());
+            manager.Register(new InsertedParser());
+            manager.Register(new MarkedParser());
+            manager.Register(new PipeTableParser());
+            manager.Register(new SubscriptParser());
+            manager.Register(new SuperscriptParser());
+            var converter = new Converter(manager);
+
+            var reMdtxt = converter.Convert(htmltxt);
+
+            WriteText("FigureFooterAndCite.temp.md", reMdtxt);
+
+            var reHtmltxt = MarkdownToHtml(reMdtxt);
+
+            Assert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
+        }
 
 
 
