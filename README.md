@@ -79,7 +79,7 @@ ver converter = new Converter(manager);
 
 ## Try it
 
-If you can run WebAssembly, please see [demoapps](docs/demo/index.html).
+If you can run WebAssembly, please see [demoapps](https://whistyun.github.io/Html2Markdown/demo/index.html).
 
 ![screenshot](docs/demo_shot.png)
 
