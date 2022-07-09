@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using MarkdownFromHtml.Parsers;
 using NUnit.Framework;
 using VerifyNUnit;
 
@@ -761,6 +762,25 @@ Hello World
 
         #endregion
 
+        #region pipe table
+        [Test]
+        public Task Convert_PipeTable()
+        {
+            const string content = "<table><thead><tr><th style=\"text-align: center;\">alpha</th><th style=\"text-align: left;\">beta</th><th style=\"text-align: right;\">gamma</th></tr></thead><tbody><tr><td style=\"text-align: center;\">a001</td><td style=\"text-align: left;\"></td><td style=\"text-align: right;\"><em>c001</em></td></tr><tr><td style=\"text-align: center;\">a002</td><td style=\"text-align: left;\">b1</td><td style=\"text-align: right;\"><strong>c002</strong></td></tr><tr><td style=\"text-align: center;\"><a href=\"https://google.com\">google.com</a></td><td style=\"text-align: left;\"><img src=\"https://cloud.githubusercontent.com/assets/1049999/11505182/0480ad76-9841-11e5-8a62-126d4b7c03be.png\" alt=\"icon\" /></td><td style=\"text-align: right;\"><em>alpha</em> <strong>beta</strong></td></tr></tbody></table><table><thead><tr><th style=\"text-align: center;\">alpha</th><th style=\"text-align: left;\">beta</th><th style=\"text-align: right;\">gamma</th></tr></thead></table>";
+
+            var manager = new ReplaceManager();
+            manager.Register(new PipeTableParser());
+
+            var converter = new Converter(manager);
+
+            var result = converter.Convert(content);
+
+            return Verifier.Verify(result);
+        }
+        #endregion
+
+
+
         #region Complex Tests
 
         [Test]
@@ -796,6 +816,7 @@ Hello World
         }
 
         #endregion
+
 
         private static Task CheckConversion(string html)
         {

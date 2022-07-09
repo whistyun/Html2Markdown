@@ -23,18 +23,24 @@ namespace MarkdownFromHtml.Parsers
             if (theadRows is null)
                 return false;
 
-            var tbodyRows = node.SelectNodes("./tbody/tr");
-            if (tbodyRows is null)
-                return false;
-
-
             var headGrp = TableRows2Block(theadRows, manager);
             if (headGrp is null)
                 return false;
 
-            var bodyGrp = TableRows2Block(tbodyRows, manager);
-            if (bodyGrp is null)
-                return false;
+            List<IMdBlock>[]? bodyGrp;
+
+            var tbodyRows = node.SelectNodes("./tbody/tr");
+            if (tbodyRows is null)
+            {
+                bodyGrp = Array.Empty<List<IMdBlock>>();
+            }
+            else
+            {
+                bodyGrp = TableRows2Block(tbodyRows, manager);
+                if (bodyGrp is null)
+                    return false;
+            }
+
 
             List<IMdBlock>[]? footGrp = null;
             var tfootRows = node.SelectNodes("./tfoot/tr");

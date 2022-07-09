@@ -93,15 +93,7 @@ namespace MarkdownFromHtml.Test
             var htmltxt = MarkdownToHtml(mdtxt);
 
             var manager = new ReplaceManager();
-            manager.Register(new CiteParser());
-            manager.Register(new DeletedParser());
-            manager.Register(new FigureParser());
             manager.Register(new GridTableParser());
-            manager.Register(new InsertedParser());
-            manager.Register(new MarkedParser());
-            manager.Register(new PipeTableParser());
-            manager.Register(new SubscriptParser());
-            manager.Register(new SuperscriptParser());
             var converter = new Converter(manager);
 
             var reMdtxt = converter.Convert(htmltxt);
