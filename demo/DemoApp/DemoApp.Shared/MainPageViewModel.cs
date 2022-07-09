@@ -42,7 +42,7 @@ namespace DemoApp
         {
             TargetName = "html";
             ConvertedName = "markdown";
-            TargetContent = "";
+            TargetContent = "<html>\n  <body>\n    <div>\n      <h1>Hellow Html to Markdown</h1>\n    </div>\n\n    <div>\n      <h2>What's this?</h2>\n      <p>This application convert html to markdown.</p>\n    </div>\n\n    <div>\n      <h2>Support</h2>\n      <ul>\n        <li><code>&lt;a&gt;</code></li>\n        <li><code>&lt;strong&gt;</code></li>\n        <li><code>&lt;b&gt;</code></li>\n        <li><code>&lt;em&gt;</code></li>\n        <li><code>&lt;i&gt;</code></li>\n        <li><code>&lt;br&gt;</code></li>\n        <li><code>&lt;code&gt;</code></li>\n        <li><code>&lt;h1&gt;</code></li>\n        <li><code>&lt;h2&gt;</code></li>\n        <li><code>&lt;h3&gt;</code></li>\n        <li><code>&lt;h4&gt;</code></li>\n        <li><code>&lt;h5&gt;</code></li>\n        <li><code>&lt;h6&gt;</code></li>\n        <li><code>&lt;blockquote&gt;</code></li>\n        <li><code>&lt;img&gt;</code></li>\n        <li><code>&lt;hr&gt;</code></li>\n        <li><code>&lt;p&gt;</code></li>\n        <li><code>&lt;pre&gt;</code></li>\n        <li><code>&lt;ul&gt;</code></li>\n        <li><code>&lt;ol&gt;</code></li>\n      </ul>\n    </div>\n  </body>\n</html>\n";
             ConvertedContent = "";
 
             IsEnabledEmphasisDeleted = true;
@@ -57,6 +57,8 @@ namespace DemoApp
 
             ConvertCommand = new ActCommand(Convert);
             RotateCommand = new ActCommand(Rotate);
+
+            Convert();
         }
 
 
