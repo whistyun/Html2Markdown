@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.1" />
+    <PackageReference Include="Html2Markdown" Version="5.0.2.561" />
     <PackageReference Include="ReverseMarkdown" Version="3.23.1" />
   </ItemGroup>
 
