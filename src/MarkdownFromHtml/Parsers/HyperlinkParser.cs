@@ -19,7 +19,7 @@ namespace MarkdownFromHtml.Parsers
             if (link is null || !content.All(nd => nd is IMdInline))
             {
                 generated = Array.Empty<IMdElement>();
-                return false;
+                return true;
             }
 
             generated = new[] { new Hyperlink(content.Cast<IMdInline>(), link, title) };

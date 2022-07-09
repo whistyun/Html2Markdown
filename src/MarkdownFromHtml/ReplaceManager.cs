@@ -20,6 +20,8 @@ namespace MarkdownFromHtml
             _bindParsers = new();
             _parsers = new();
 
+            UnknownTags = UnknownTagsOption.PassThrough;
+
             Register(new TagIgnoreParser());
             Register(new CommentParsre());
 
@@ -39,6 +41,8 @@ namespace MarkdownFromHtml
             Register(new CodeBlockParser());
             Register(new HorizontalRuleParser());
         }
+
+        public UnknownTagsOption UnknownTags { get; set; }
 
         public void Register(ISimpleTagParser parser)
         {
@@ -165,7 +169,24 @@ namespace MarkdownFromHtml
                 }
             }
 
-            return Array.Empty<IMdElement>();
+
+            switch (UnknownTags)
+            {
+                case UnknownTagsOption.PassThrough:
+                    return HtmlUtils.IsBlockTag(node.Name) ?
+                        new[] { new HtmlBlock(node.OuterHtml) } :
+                        new[] { new HtmlInline(node.OuterHtml) };
+
+                case UnknownTagsOption.Drop:
+                    return Array.Empty<IMdElement>();
+
+                case UnknownTagsOption.Bypass:
+                    return ParseJagging(node.ChildNodes);
+
+                case UnknownTagsOption.Raise:
+                default:
+                    throw new UnknownTagException(node);
+            }
         }
 
         public IEnumerable<IMdBlock> Grouping(IEnumerable<IMdElement> elements)
