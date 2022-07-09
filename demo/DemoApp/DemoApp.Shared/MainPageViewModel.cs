@@ -1,4 +1,7 @@
-﻿using Markdig;
+﻿using Html2Markdown.Parsers;
+using Html2Markdown.Parsers.MarkdigExtensions;
+using Markdig;
+using Markdig.Extensions.EmphasisExtras;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,12 +22,38 @@ namespace DemoApp
         public string ConvertedName { set => SetValue(value); get => GetValue<string>(); }
         public string ConvertedContent { set => SetValue(value); get => GetValue<string>(); }
 
+        public bool IsEnabledEmphasisExtra { set => SetValue(value); get => GetValue<bool>(); }
+        public bool IsEnabledEmphasisDeleted { set => SetValue(value); get => GetValue<bool>(); }
+        public bool IsEnabledEmphasisInserted { set => SetValue(value); get => GetValue<bool>(); }
+        public bool IsEnabledEmphasisMarked { set => SetValue(value); get => GetValue<bool>(); }
+        public bool IsEnabledEmphasisSubscript { set => SetValue(value); get => GetValue<bool>(); }
+        public bool IsEnabledEmphasisSuperscript { set => SetValue(value); get => GetValue<bool>(); }
+
+        public bool IsEnabledPipeTable { set => SetValue(value); get => GetValue<bool>(); }
+        public bool IsEnabledGridTable { set => SetValue(value); get => GetValue<bool>(); }
+
+        public bool IsEnabledFigureFooterAndCite { set => SetValue(value); get => GetValue<bool>(); }
+        public bool IsEnabledFigure { set => SetValue(value); get => GetValue<bool>(); }
+        public bool IsEnabledFooter { set => SetValue(value); get => GetValue<bool>(); }
+        public bool IsEnabledCite { set => SetValue(value); get => GetValue<bool>(); }
+
+
         public MainPageViewModel()
         {
             TargetName = "html";
             ConvertedName = "markdown";
             TargetContent = "";
             ConvertedContent = "";
+
+            IsEnabledEmphasisDeleted = true;
+            IsEnabledEmphasisInserted = true;
+            IsEnabledEmphasisMarked = true;
+            IsEnabledEmphasisSubscript = true;
+            IsEnabledEmphasisSuperscript = true;
+
+            IsEnabledFigure = true;
+            IsEnabledFooter = true;
+            IsEnabledCite = true;
 
             ConvertCommand = new ActCommand(Convert);
             RotateCommand = new ActCommand(Rotate);
@@ -46,14 +75,90 @@ namespace DemoApp
         {
             if (TargetName == "html")
             {
-                var converter = new Html2Markdown.Converter();
+                var converter = CreateConverter();
                 ConvertedContent = converter.Convert(TargetContent);
             }
             if (TargetName == "markdown")
             {
-                ConvertedContent = Markdown.ToHtml(TargetContent);
+                var pipe = CreatePipeline();
+                ConvertedContent = Markdown.ToHtml(TargetContent, pipe);
             }
         }
+
+        private Html2Markdown.Converter CreateConverter()
+        {
+            var manager = new Html2Markdown.ReplaceManager();
+
+            if (IsEnabledGridTable)
+                manager.Register(new GridTableParser());
+
+            if (IsEnabledPipeTable)
+                manager.Register(new PipeTableParser());
+
+            if (IsEnabledEmphasisExtra)
+            {
+                if (IsEnabledEmphasisDeleted)
+                    manager.Register(new DeletedParser());
+
+                if (IsEnabledEmphasisInserted)
+                    manager.Register(new InsertedParser());
+
+                if (IsEnabledEmphasisMarked)
+                    manager.Register(new MarkedParser());
+
+                if (IsEnabledEmphasisSubscript)
+                    manager.Register(new SubscriptParser());
+
+                if (IsEnabledEmphasisSuperscript)
+                    manager.Register(new SuperscriptParser());
+            }
+
+            if (IsEnabledFigureFooterAndCite)
+            {
+                if (IsEnabledFigure)
+                    manager.Register(new FigureParser());
+
+                if (IsEnabledFooter)
+                    manager.Register(new FooterParser());
+
+                if (IsEnabledCite)
+                    manager.Register(new CiteParser());
+            }
+
+            return new Html2Markdown.Converter(manager);
+        }
+
+        private MarkdownPipeline CreatePipeline()
+        {
+            var builder = new MarkdownPipelineBuilder();
+
+            if (IsEnabledPipeTable)
+                builder.UsePipeTables();
+
+            if (IsEnabledGridTable)
+                builder.UseGridTables();
+
+            if (IsEnabledEmphasisExtra)
+            {
+                builder.UseEmphasisExtras(
+                     (IsEnabledEmphasisDeleted ? EmphasisExtraOptions.Strikethrough : 0) |
+                     (IsEnabledEmphasisInserted ? EmphasisExtraOptions.Inserted : 0) |
+                     (IsEnabledEmphasisMarked ? EmphasisExtraOptions.Marked : 0) |
+                     (IsEnabledEmphasisSubscript ? EmphasisExtraOptions.Subscript : 0) |
+                     (IsEnabledEmphasisSuperscript ? EmphasisExtraOptions.Superscript : 0)
+               );
+            }
+
+            if (IsEnabledFigureFooterAndCite)
+            {
+                if (IsEnabledFigure) builder.UseFigures();
+                if (IsEnabledFooter) builder.UseFooters();
+                if (IsEnabledCite) builder.UseCitations();
+            }
+
+            return builder.Build();
+        }
+
     }
 
     class ActCommand : ICommand

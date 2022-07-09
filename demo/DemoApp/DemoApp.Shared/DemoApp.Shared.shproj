@@ -11,6 +11,10 @@
   <Import Project="DemoApp.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\CodeSharing\Microsoft.CodeSharing.CSharp.targets" />
   <ItemGroup>
+    <_Globbed_Compile Remove="GroupBox.xaml.cs" />
     <_Globbed_Compile Remove="MainPageViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <_Globbled_Page Remove="GroupBox.xaml" />
   </ItemGroup>
 </Project>

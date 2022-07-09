@@ -40,6 +40,7 @@
 
                 <TextBox 
                     Grid.Row="1" Grid.Column="0"
+                    FontFamily="Consolas, courier, monospace"
                     AcceptsReturn="True" 
                     IsEnabled="True"
                     IsReadOnly="False"
@@ -61,6 +62,7 @@
 
                 <TextBox
                     Grid.Row="1" Grid.Column="2"
+                    FontFamily="Consolas, courier, monospace"
                     AcceptsReturn="True"
                     IsEnabled="True"
                     IsReadOnly="True"
@@ -70,16 +72,147 @@
                 <Button
                     Grid.Row="2" Grid.Column="0"
                     Grid.ColumnSpan="3"
+                    FontSize="30"
                     HorizontalAlignment="Stretch"
                     Content="Convert"
                     Command="{x:Bind ViewModel.ConvertCommand}"/>
             </Grid>
         </controls:TabViewItem>
         <controls:TabViewItem Header="Option">
-            <StackPanel Orientation="Horizontal">
-                <CheckBox Content="Pipe table"/>
-                <CheckBox Content="Grid table"/>
-            </StackPanel>
+            <WrapPanel Orientation="Vertical">
+                <Grid Margin="0 0 15 15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <CheckBox 
+                        Grid.Column="0" Grid.Row="0" 
+                        Grid.ColumnSpan="2"
+                        Content="EmphasisExtra" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledEmphasisExtra, Mode=TwoWay}"
+                        />
+
+                    <CheckBox 
+                        Grid.Column="1" Grid.Row="1" 
+                        Content="Deleted(Strikethrough)"
+                        IsChecked="{x:Bind ViewModel.IsEnabledEmphasisDeleted, Mode=TwoWay}"
+                        IsEnabled="{x:Bind ViewModel.IsEnabledEmphasisExtra, Mode=OneWay}"
+                        />
+
+                    <CheckBox 
+                        Grid.Column="1" Grid.Row="2" 
+                        Content="Inserted" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledEmphasisInserted, Mode=TwoWay}"
+                        IsEnabled="{x:Bind ViewModel.IsEnabledEmphasisExtra, Mode=OneWay}"
+                        />
+
+                    <CheckBox 
+                        Grid.Column="1" Grid.Row="3" 
+                        Content="Marked" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledEmphasisMarked, Mode=TwoWay}"
+                        IsEnabled="{x:Bind ViewModel.IsEnabledEmphasisExtra, Mode=OneWay}"
+                        />
+
+                    <CheckBox 
+                        Grid.Column="1" Grid.Row="4" 
+                        Content="Subscript" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledEmphasisSubscript, Mode=TwoWay}"
+                        IsEnabled="{x:Bind ViewModel.IsEnabledEmphasisExtra, Mode=OneWay}"
+                        />
+
+                    <CheckBox 
+                        Grid.Column="1" Grid.Row="5" 
+                        Content="Superscript" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledEmphasisSuperscript, Mode=TwoWay}"
+                        IsEnabled="{x:Bind ViewModel.IsEnabledEmphasisExtra, Mode=OneWay}"
+                        />
+                </Grid>
+
+                <Grid Margin="0 0 15 15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock
+                        Grid.Column="0" Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Text="Table"/>
+
+                    <CheckBox 
+                        Grid.Column="1" Grid.Row="1"
+                        Content="Pipe table"
+                        IsChecked="{x:Bind ViewModel.IsEnabledPipeTable, Mode=TwoWay}"
+                        />
+
+                    <CheckBox 
+                        Grid.Column="1" Grid.Row="2"
+                        Content="Grid table" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledGridTable, Mode=TwoWay}"
+                        />
+                </Grid>
+
+
+
+                <Grid Margin="0 0 15 15">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <CheckBox 
+                        Grid.Column="0" Grid.Row="0"
+                        Grid.ColumnSpan="2"
+                        Content="FigureFooterAndCite" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledFigureFooterAndCite, Mode=TwoWay}"
+                        />
+
+                    <CheckBox 
+                        Grid.Column="1" Grid.Row="1"
+                        Content="Figure" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledFigure, Mode=TwoWay}"
+                        IsEnabled="{x:Bind ViewModel.IsEnabledFigureFooterAndCite, Mode=OneWay}"
+                        />
+
+                    <CheckBox 
+                        Grid.Column="2" Grid.Row="2"
+                        Content="Footer" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledFooter, Mode=TwoWay}"
+                        IsEnabled="{x:Bind ViewModel.IsEnabledFigureFooterAndCite, Mode=OneWay}"
+                        />
+
+                    <CheckBox 
+                        Grid.Column="3" Grid.Row="3"
+                        Content="Cite" 
+                        IsChecked="{x:Bind ViewModel.IsEnabledCite, Mode=TwoWay}"
+                        IsEnabled="{x:Bind ViewModel.IsEnabledFigureFooterAndCite, Mode=OneWay}"
+                        />
+                </Grid>
+            </WrapPanel>
         </controls:TabViewItem>
     </controls:TabView>
 </Page>
