@@ -53,7 +53,8 @@ namespace MarkdownFromHtml
                     list = new();
                     _bindParsers.Add(tag.ToLower(), list);
                 }
-                list.Insert(0, parser);
+
+                InsertWithPriority(list, parser);
             }
         }
 
@@ -63,8 +64,29 @@ namespace MarkdownFromHtml
                 Register(simpleParser);
 
             else
-                _parsers.Insert(0, parser);
+                InsertWithPriority(_parsers, parser);
         }
+
+        private void InsertWithPriority<T>(List<T> list, T parser) where T : ITagParser
+        {
+            int parserPriority = parser.GetPriority();
+
+            int count = list.Count;
+            for (int i = 0; i < count; ++i)
+            {
+                var elmnt = list[i];
+
+                if (parserPriority <= elmnt.GetPriority())
+                {
+                    list.Insert(i, parser);
+                    return;
+                }
+            }
+            list.Add(parser);
+        }
+
+
+
 
         public IEnumerable<IMdBlock> Parse(string htmldoc)
         {

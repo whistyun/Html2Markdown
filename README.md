@@ -65,7 +65,6 @@ var markdown = converter.ConvertFile(path);
 It can enable extension syntax; table, del(strikethrough), etc.
 
 ```cs
-// using MarkdownFromHtml.Parsers;
 // using MarkdownFromHtml.Parsers.MarkdigExtensions;
 
 var manager = new ReplaceManager();

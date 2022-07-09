@@ -11,8 +11,10 @@ using System.Threading.Tasks;
 
 namespace MarkdownFromHtml.Parsers.MarkdigExtensions
 {
-    public class GridTableParser : ISimpleTagParser
+    public class GridTableParser : ISimpleTagParser, IHasPriority
     {
+        public int Priority => TagParserExt.DefaultPriority + 1000;
+
         public IEnumerable<string> SupportTag => new[] { "table" };
 
         public bool TryReplace(HtmlNode node, ReplaceManager manager, out IEnumerable<IMdElement> generated)

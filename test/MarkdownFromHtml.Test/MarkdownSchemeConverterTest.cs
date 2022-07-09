@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using MarkdownFromHtml.Parsers;
+using MarkdownFromHtml.Parsers.MarkdigExtensions;
 using NUnit.Framework;
 using VerifyNUnit;
 

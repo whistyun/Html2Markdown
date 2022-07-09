@@ -16,4 +16,19 @@ namespace MarkdownFromHtml.Parsers
     {
         IEnumerable<string> SupportTag { get; }
     }
+
+    public interface IHasPriority
+    {
+        int Priority { get; }
+    }
+
+    public static class TagParserExt
+    {
+        public const int DefaultPriority = 10000;
+
+        public static int GetPriority(this ITagParser parser)
+        {
+            return parser is IHasPriority prop ? prop.Priority : DefaultPriority;
+        }
+    }
 }
