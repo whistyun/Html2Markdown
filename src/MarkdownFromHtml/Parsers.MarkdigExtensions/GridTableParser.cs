@@ -22,7 +22,6 @@ namespace MarkdownFromHtml.Parsers.MarkdigExtensions
             generated = Array.Empty<IMdElement>();
 
             var cols = ParseWidth(node.ChildNodes.CollectTag("col"));
-            if (cols is null) return false;
 
             // grid table can has no body or no head.
 

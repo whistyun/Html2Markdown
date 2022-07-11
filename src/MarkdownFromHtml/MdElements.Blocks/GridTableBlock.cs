@@ -16,7 +16,7 @@ namespace MarkdownFromHtml.MdElements.Blocks
         private List<string> _markdown;
 
         public GridTableBlock(
-            int[] width,
+            int[]? width,
             List<string?> styles,
             IEnumerable<IEnumerable<GridTableCell>>? header,
             IEnumerable<IEnumerable<GridTableCell>>? rows)

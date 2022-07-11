@@ -76,14 +76,17 @@ namespace MarkdownFromHtml.Utils
             Current = new CellPos(Current.RowAt, colAt);
         }
 
-        public void Finish(int[] colwidratio)
+        public void Finish(int[]? colwidratio)
         {
             // expand width with ratio
-            var colWidRatio = new LenientList<int>(colwidratio, colwidratio[colwidratio.Length - 1]);
-            colWidRatio.Expand(Math.Max(colWidRatio.Count, ColLenList.Count));
-            var sumRatio = colWidRatio.Sum();
+            LenientList<int>? colWidRatio = null;
 
+            if (colwidratio is not null)
             {
+                colWidRatio = new LenientList<int>(colwidratio, colwidratio[colwidratio.Length - 1]);
+                colWidRatio.Expand(Math.Max(colWidRatio.Count, ColLenList.Count));
+
+                var sumRatio = colWidRatio.Sum();
                 double[] colWidScale = Enumerable.Range(0, colWidRatio.Count)
                                                  .Select(i => ColLenList[i] * sumRatio / (double)colWidRatio[i])
                                                  .ToArray();
@@ -105,23 +108,29 @@ namespace MarkdownFromHtml.Utils
 
                     if (requestAdd <= 0) continue;
 
-                    var scales = Enumerable.Range(hold.ColAt, hold.ColSpan)
-                                           .Select(idx => colWidRatio[idx]);
-                    int totalScale = scales.Sum();
-
-                    int[] adding = scales.Select(scl => requestAdd * scl / totalScale).ToArray();
-
-                    int remains = requestAdd - adding.Sum();
-                    foreach (var e in adding.Select((val, idx) => (val, idx))
-                                            .OrderByDescending(e => e.val))
+                    if (colWidRatio is null)
                     {
-                        adding[e.idx]++;
-                        if (--remains == 0) break;
+                        ColLenList[hold.ColAt + hold.ColSpan - 1] += requestAdd;
                     }
+                    else
+                    {
+                        var scales = Enumerable.Range(hold.ColAt, hold.ColSpan)
+                                               .Select(idx => colWidRatio[idx]);
+                        int totalScale = scales.Sum();
 
-                    for (int i = 0; i < adding.Length; ++i)
-                        ColLenList[hold.ColAt + i] += adding[i];
+                        int[] adding = scales.Select(scl => requestAdd * scl / totalScale).ToArray();
 
+                        int remains = requestAdd - adding.Sum();
+                        foreach (var e in adding.Select((val, idx) => (val, idx))
+                                                .OrderByDescending(e => e.val))
+                        {
+                            adding[e.idx]++;
+                            if (--remains == 0) break;
+                        }
+
+                        for (int i = 0; i < adding.Length; ++i)
+                            ColLenList[hold.ColAt + i] += adding[i];
+                    }
                 }
                 else ColLenList.SetIfMax(hold.ColAt, hold.ColLen);
             }
@@ -145,8 +154,10 @@ namespace MarkdownFromHtml.Utils
 
 
             // reexpand width with ratio
-            if (_holds.Count > 0)
+            if (_holds.Count > 0 && colWidRatio is not null)
             {
+                var sumRatio = colWidRatio.Sum();
+
                 double[] colWidScale = Enumerable.Range(0, colWidRatio.Count)
                                                  .Select(i => ColLenList[i] * sumRatio / (double)colWidRatio[i])
                                                  .ToArray();
