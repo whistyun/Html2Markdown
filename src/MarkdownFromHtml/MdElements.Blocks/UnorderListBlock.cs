@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using MarkdownFromHtml.Utils;
 
 namespace MarkdownFromHtml.MdElements.Blocks
@@ -34,12 +33,13 @@ namespace MarkdownFromHtml.MdElements.Blocks
                         yield return "";
                     }
 
-                    foreach (var line in blockInItem.ToMarkdown().SelectMany(ln => ln.SplitLine()))
-                    {
-                        yield return (isFirst ? Symbol : Indent) + line;
+                    foreach (var multiline in blockInItem.ToMarkdown())
+                        foreach (var line in multiline.SplitLine())
+                        {
+                            yield return (isFirst ? Symbol : Indent) + line;
 
-                        isFirst = false;
-                    }
+                            isFirst = false;
+                        }
 
                     isRepeated = true;
                 }

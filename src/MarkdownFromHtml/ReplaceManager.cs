@@ -6,7 +6,6 @@ using MarkdownFromHtml.Utils;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace MarkdownFromHtml
 {
@@ -85,9 +84,9 @@ namespace MarkdownFromHtml
             list.Add(parser);
         }
 
-
-
-
+        /// <summary>
+        /// Convert a html tag list to an element of markdown.
+        /// </summary>
         public IEnumerable<IMdBlock> Parse(string htmldoc)
         {
             var doc = new HtmlDocument();
@@ -96,15 +95,18 @@ namespace MarkdownFromHtml
             return Parse(doc);
         }
 
+        /// <summary>
+        /// Convert a html tag list to an element of markdown.
+        /// </summary>
         public IEnumerable<IMdBlock> Parse(HtmlDocument doc)
         {
             var contents = new List<HtmlNode>();
 
-            var head = doc.DocumentNode.SelectNodes("//head")?.FirstOrDefault();
+            var head = PickBodyOrHead(doc.DocumentNode, "head");
             if (head is not null)
                 contents.AddRange(head.ChildNodes.SkipComment());
 
-            var body = doc.DocumentNode.SelectNodes("//body")?.FirstOrDefault();
+            var body = PickBodyOrHead(doc.DocumentNode, "body");
             if (body is not null)
                 contents.AddRange(body.ChildNodes.SkipComment());
 
@@ -211,6 +213,10 @@ namespace MarkdownFromHtml
             }
         }
 
+        /// <summary>
+        /// Convert IMdElement to IMdBlock.
+        /// Inline elements are aggreated into paragraph.
+        /// </summary>
         public IEnumerable<IMdBlock> Grouping(IEnumerable<IMdElement> elements)
         {
             bool Group(IList<IMdInline> inlines)
@@ -294,6 +300,59 @@ namespace MarkdownFromHtml
             if (stored.Count != 0)
                 if (Group(stored))
                     yield return new Paragraph(stored.ToArray());
+        }
+
+        private HtmlNode? PickBodyOrHead(HtmlNode documentNode, string headOrBody)
+        {
+            // html?
+            foreach (var child in documentNode.ChildNodes)
+            {
+                if (child.Name == HtmlTextNode.HtmlNodeTypeNameText
+                    || child.Name == HtmlTextNode.HtmlNodeTypeNameComment)
+                    continue;
+
+                switch (child.Name.ToLower())
+                {
+                    case "html":
+                        // body? head?
+                        foreach (var descendants in child.ChildNodes)
+                        {
+                            if (descendants.Name == HtmlTextNode.HtmlNodeTypeNameText
+                                || descendants.Name == HtmlTextNode.HtmlNodeTypeNameComment)
+                                continue;
+                            switch (descendants.Name.ToLower())
+                            {
+                                case "head":
+                                    if (headOrBody == "head")
+                                        return descendants;
+                                    break;
+
+                                case "body":
+                                    if (headOrBody == "body")
+                                        return descendants;
+                                    break;
+
+                                default:
+                                    return null;
+                            }
+                        }
+                        break;
+
+                    case "head":
+                        if (headOrBody == "head")
+                            return child;
+                        break;
+
+                    case "body":
+                        if (headOrBody == "body")
+                            return child;
+                        break;
+
+                    default:
+                        return null;
+                }
+            }
+            return null;
         }
     }
 }

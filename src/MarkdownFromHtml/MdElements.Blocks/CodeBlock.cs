@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Text;
 using MarkdownFromHtml.Utils;
 
@@ -37,12 +36,11 @@ namespace MarkdownFromHtml.MdElements.Blocks
 
         public IEnumerable<string> ToMarkdown()
         {
-            yield return "```" + Lang;
-
-            foreach (var codeline in Code.SplitLine())
-                yield return codeline;
-
-            yield return "```";
+            return new string[] {
+                "```" + Lang,
+                Code,
+                "```"
+            };
         }
     }
 }

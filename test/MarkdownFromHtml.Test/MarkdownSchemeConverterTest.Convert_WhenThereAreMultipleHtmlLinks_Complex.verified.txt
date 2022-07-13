@@ -1,0 +1,3 @@
+﻿* [![image](image.png)](http://www.simonbaynes.com/)
+* [![image2](image2.png)with text](http://www.google.com/)
+* [![image2](image2.png)**with text**](http://www.google.com/)

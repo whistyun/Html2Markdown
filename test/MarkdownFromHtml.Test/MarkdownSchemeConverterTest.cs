@@ -60,6 +60,19 @@ namespace MarkdownFromHtml.Test
         }
 
         [Test]
+        public Task Convert_WhenThereAreMultipleHtmlLinks_Complex()
+        {
+            const string html = @"<ul>
+                <li><a href=""http://www.simonbaynes.com/""><img src=""image.png"" alt=""image""></a></li>
+                <li><a href=""http://www.google.com/""><img src=""image2.png"" alt=""image2"">with text</a></li>
+                <li><a href=""http://www.google.com/""><img src=""image2.png"" alt=""image2""><strong>with text</strong></a></li>
+                </ul>";
+
+            return CheckConversion(html);
+        }
+
+
+        [Test]
         public Task Convert_WhenThereAreEmptyLinks_ThenRemoveThemFromResult()
         {
             const string html = @"So this is <a name=""curio""></a> and so is <a href=""http://www.google.com/"">this</a>. Convert them";

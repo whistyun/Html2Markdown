@@ -1,9 +1,5 @@
 ﻿using MarkdownFromHtml.Utils;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarkdownFromHtml.MdElements.Blocks
 {
@@ -28,10 +24,9 @@ namespace MarkdownFromHtml.MdElements.Blocks
                     yield return "^^ ";
                 }
 
-                foreach (var line in block.ToMarkdown().SelectMany(ln => ln.SplitLine()))
-                {
-                    yield return "^^ " + line;
-                }
+                foreach (var multiline in block.ToMarkdown())
+                    foreach (var line in multiline.SplitLine())
+                        yield return "^^ " + line;
             }
         }
     }

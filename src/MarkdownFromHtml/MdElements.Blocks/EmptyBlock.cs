@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MarkdownFromHtml.MdElements.Blocks
 {
@@ -10,9 +7,11 @@ namespace MarkdownFromHtml.MdElements.Blocks
     {
         public static readonly EmptyBlock Instance = new();
 
+        private EmptyBlock() { }
+
         public IEnumerable<string> ToMarkdown()
         {
-            yield break;
+            return Array.Empty<string>();
         }
     }
 }

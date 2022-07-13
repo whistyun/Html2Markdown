@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace MarkdownFromHtml.MdElements
+﻿namespace MarkdownFromHtml.MdElements
 {
     public interface IMdElement
     {
