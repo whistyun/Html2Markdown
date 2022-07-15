@@ -2,12 +2,13 @@
 
   <PropertyGroup>
     <TargetFrameworks>net472;netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>
-    <Authors>Simon Baynes</Authors>
+    <Authors>Simon Baynes, whistyun</Authors>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/whistyun/MarkdownFromHtml</PackageProjectUrl>
     <Description>A library for converting HTML to markdown syntax in C#</Description>
-    <Copyright>© Simon Baynes 2013</Copyright>
-    <PackageTags>Markdown;Html;Convert</PackageTags>
+    <Copyright>Simon Baynes 2013, whistyun 2022</Copyright>
+    <PackageTags>Markdown;Html;Convert;htmltomarkdown;html2markdown</PackageTags>
+    <Version>1.1.0</Version>
 
     <LangVersion>9</LangVersion>
     <Nullable>enable</Nullable>
