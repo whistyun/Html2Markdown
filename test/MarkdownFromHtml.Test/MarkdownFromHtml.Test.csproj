@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="Markdig" Version="0.30.2" />
-    <PackageReference Include="Microsoft.DocAsCode.MarkdigEngine.Extensions" Version="2.59.2" />
+    <PackageReference Include="Microsoft.DocAsCode.MarkdigEngine.Extensions" Version="2.59.3" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
     <PackageReference Include="NUnit" Version="3.13.3" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.2.1" />
