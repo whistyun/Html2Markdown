@@ -1,56 +1,38 @@
-# HTML2Markdown
+# MarkdownFromHtml
 
 Converts HTML to [Markdown](http://daringfireball.net/projects/markdown/syntax).
 
-[![Join the chat at https://gitter.im/Html2Markdown/Lobby](https://badges.gitter.im/Html2Markdown/Lobby.svg)](https://gitter.im/Html2Markdown/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
----
-
-![Html2Markdown](https://cloud.githubusercontent.com/assets/1049999/11505182/0480ad76-9841-11e5-8a62-126d4b7c03be.png)
-
-## Build Status
-
-| Branch | Status |
-| ------ | ------ |
-| master | [![master](https://ci.appveyor.com/api/projects/status/cbi6sknslvu3rq6n/branch/master?svg=true)](https://ci.appveyor.com/project/baynezy/html2markdown/branch/master) |
-| develop | [![develop](https://ci.appveyor.com/api/projects/status/cbi6sknslvu3rq6n/branch/develop?svg=true)](https://ci.appveyor.com/project/baynezy/html2markdown/branch/develop) |
-
-## Code Quality
-
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b8acbfab2c434cdf91ea2f90ac91dad6)](https://www.codacy.com/app/baynezy/Html2Markdown?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=baynezy/Html2Markdown&amp;utm_campaign=Badge_Grade)
 
 ## Support
 
 This project will currently convert the following HTML tags:-
 
-- `<a>`
-- `<strong>`
-- `<b>`
-- `<em>`
-- `<i>`
-- `<br>`
-- `<code>`
-- `<h1>`
-- `<h2>`
-- `<h3>`
-- `<h4>`
-- `<h5>`
-- `<h6>`
-- `<blockquote>`
-- `<img>`
-- `<hr>`
-- `<p>`
-- `<pre>`
-- `<ul>`
-- `<ol>`
+| category             | tag                           | category  | tag               |
+|----------------------|-------------------------------|-----------|-------------------|
+| thematic break       | `<hr>`                        | bold      | `<strong>`, `<b>` |
+| heading              | `<h1>`, `<h2>`, `<h3>`,       | code span | `<code>`          |
+|                      | `<h4>`, `<h5>`, `<h6>`        | hyperlink | `<a>`             |
+| indented code blocks | `<pre><code class="lang-**">` | image     | `<img>`           |
+| fenced code blocks   | `<pre><code>`                 | italic    | `<em>`, `<i>`     |
+| paragraph            | `<p>`                         | linebreak | `<br>`            |
+| block quote          | `<blockquote>`                |
+| list                 | `<ul>`, `<ol>`                |
 
-## Installing via NuGet
 
-[![NuGet version](https://badge.fury.io/nu/Html2Markdown.svg)](http://badge.fury.io/nu/Html2Markdown)
+And extensions add
 
-```pwsh
-    Install-Package Html2Markdown
-```
+| category        | tag                                | category      | tag      |
+|-----------------|------------------------------------|---------------|----------|
+| citation        | `<cite>`                           | underline     | `<ins>`  |
+| figure          | `<figure>`                         | strikethrough | `<del>`  |
+| footer          | `<footer>`                         | subscript     | `<sub>`  |
+| pipe table      | `<table>`                          | superscript   | `<sup>`  |
+| grid table      | `<table>`                          | marked text   | `<mark>` |
+
+## Nuget
+
+https://www.nuget.org/packages/MarkdownFromHtml
+
 
 ## Usage
 
@@ -62,6 +44,7 @@ var converter = new Converter();
 var markdown = converter.Convert(html);
 ```
 
+
 ### Files
 
 ```csharp
@@ -70,25 +53,29 @@ var converter = new Converter();
 var markdown = converter.ConvertFile(path);
 ```
 
+
 ## Customise
 
-### Create new `IScheme` implementation
+`ReplaceManager` used to build the converter accepts other parsers.
+It can enable extension syntax; table, del(strikethrough), etc.
 
-Create your own implementation of `IScheme` and construct `Converter` with that.
+```cs
+// using MarkdownFromHtml.Parsers.MarkdigExtensions;
 
-```csharp
-var html = "Something to <strong>convert</strong>";
-var converter = new Converter(customConversionScheme);
-var markdown = converter.Convert(html);
+var manager = new ReplaceManager();
+manager.Register(new GridTableParser());
+manager.Register(new PipeTableParser());
+
+ver converter = new Converter(manager);
 ```
+
 
 ## Try it
 
-This library is showcased at [http://html2markdown.bayn.es](http://html2markdown.bayn.es).
+If you can run WebAssembly, please see [demoapps](https://whistyun.github.io/MarkdownFromHtml/demo/index.html).
 
-## Contributing
+![screenshot](demo_shot.png)
 
-[For those interested in contributing then please read the guidelines](CONTRIBUTING.md)
 
 ## License
 

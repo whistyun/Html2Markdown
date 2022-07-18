@@ -1,0 +1,4 @@
+﻿    	class solution {
+    		int i;
+    		string name = “name”;
+    	}
