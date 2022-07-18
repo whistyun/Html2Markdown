@@ -74,7 +74,7 @@ ver converter = new Converter(manager);
 
 If you can run WebAssembly, please see [demoapps](https://whistyun.github.io/MarkdownFromHtml/demo/index.html).
 
-![screenshot](docs/demo_shot.png)
+![screenshot](demo_shot.png)
 
 
 ## License
