@@ -25,6 +25,8 @@ namespace MarkdownFromHtml.MdElements.Inlines
 
         public void TrimEnd() => Content.LastOrDefault()?.TrimStart();
 
+        public bool EndsWithSpace() => false;
+
         public string ToMarkdown()
         {
             var buff = new StringBuilder();

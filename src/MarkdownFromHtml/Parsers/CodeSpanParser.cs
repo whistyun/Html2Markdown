@@ -6,12 +6,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using MarkdownFromHtml.Utils;
+using System.Text;
 
 namespace MarkdownFromHtml.Parsers
 {
-    public class CodeSpanParser : ISimpleTagParser
+    public class CodeSpanParser : ISimpleTagParser, IRequestEscapeCharacter
     {
         public IEnumerable<string> SupportTag => new[] { "code" };
+
+        public IEnumerable<char> EscapeCharTarget => new[] { '`' };
 
         public bool TryReplace(HtmlNode node, ReplaceManager manager, out IEnumerable<IMdElement> generated)
         {
@@ -19,15 +23,22 @@ namespace MarkdownFromHtml.Parsers
             if (node.ChildNodes.All(e => e is HtmlCommentNode or HtmlTextNode))
             {
                 var span = node.InnerText;
+                bool driveOut = true;
 
-                int tagCnt = 1;
-                var mch = Regex.Match(span, "`+");
-                if (mch.Success)
+                if (span[0] == '`')
                 {
-                    tagCnt = 1 + mch.Value.Length;
+                    span = " " + span;
+                    driveOut = false;
+                }
+                if (span[span.Length - 1] == '`')
+                {
+                    span = span + " ";
+                    driveOut = false;
                 }
 
-                generated = new[] { new Code(new String('`', tagCnt), span) };
+                int tagCnt = span.CountContinuous('`') + 1;
+                generated = new[] { new Code(new String('`', tagCnt), new Plain(span, null), driveOut) };
+
                 return true;
             }
 

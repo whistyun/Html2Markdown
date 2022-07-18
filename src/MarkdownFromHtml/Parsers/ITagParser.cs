@@ -22,6 +22,16 @@ namespace MarkdownFromHtml.Parsers
         int Priority { get; }
     }
 
+    public interface IRequestEscapeCharacter
+    {
+        IEnumerable<char> EscapeCharTarget { get; }
+    }
+
+    public interface IRequestEscapeString
+    {
+        IEnumerable<string> EscapeStringTarget { get; }
+    }
+
     public static class TagParserExt
     {
         public const int DefaultPriority = 10000;

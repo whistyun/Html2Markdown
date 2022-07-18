@@ -10,7 +10,7 @@ namespace MarkdownFromHtml.MdElements.Inlines
     //
     public class Code : AccessoryInline
     {
-        public Code(string tag, string code) : base(tag, new[] { new Plain(code) })
+        public Code(string tag, Plain plain, bool driveOutSpace) : base(tag, new[] { plain }, driveOutSpace)
         {
         }
     }

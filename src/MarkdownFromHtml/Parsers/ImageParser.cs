@@ -6,9 +6,11 @@ using System.Collections.Generic;
 
 namespace MarkdownFromHtml.Parsers
 {
-    public class ImageParser : ISimpleTagParser
+    public class ImageParser : ISimpleTagParser, IRequestEscapeCharacter
     {
         public IEnumerable<string> SupportTag => new[] { "img", "image" };
+
+        public IEnumerable<char> EscapeCharTarget => "![]()".ToCharArray();
 
         public bool TryReplace(HtmlNode node, ReplaceManager manager, out IEnumerable<IMdElement> generated)
         {

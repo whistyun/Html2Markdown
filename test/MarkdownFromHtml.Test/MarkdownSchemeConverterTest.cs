@@ -793,7 +793,21 @@ Hello World
         }
         #endregion
 
+        #region escape
 
+        [Test]
+        public Task Convert_EscapeCode()
+        {
+            const string content = "difficulty plain code <code>`super`</code><br>simply convertable plain code<code>super `very` sleepy</code><pre><code>hyper `very` sleepy</code></pre>";
+
+            var converter = new Converter();
+
+            var result = converter.Convert(content);
+
+            return Verifier.Verify(result);
+        }
+
+        #endregion
 
         #region Complex Tests
 

@@ -13,11 +13,13 @@ namespace MarkdownFromHtml
     {
         private Dictionary<string, List<ISimpleTagParser>> _bindParsers;
         private List<ITagParser> _parsers;
+        private EscapeManager _escape;
 
         public ReplaceManager()
         {
             _bindParsers = new();
             _parsers = new();
+            _escape = new();
 
             UnknownTags = UnknownTagsOption.PassThrough;
 
@@ -43,6 +45,8 @@ namespace MarkdownFromHtml
 
         public UnknownTagsOption UnknownTags { get; set; }
 
+        public EscapeManager Escape { get; }
+
         public void Register(ISimpleTagParser parser)
         {
             foreach (var tag in parser.SupportTag)
@@ -55,6 +59,12 @@ namespace MarkdownFromHtml
 
                 InsertWithPriority(list, parser);
             }
+
+            if (parser is IRequestEscapeCharacter escapeReqChr)
+                RegisterRequestEscapeCharacter(escapeReqChr);
+
+            if (parser is IRequestEscapeString escapeReqStr)
+                RegisterRequestEscapeString(escapeReqStr);
         }
 
         public void Register(ITagParser parser)
@@ -64,6 +74,9 @@ namespace MarkdownFromHtml
 
             else
                 InsertWithPriority(_parsers, parser);
+
+            if (parser is IRequestEscapeCharacter escapeReq)
+                RegisterRequestEscapeCharacter(escapeReq);
         }
 
         private void InsertWithPriority<T>(List<T> list, T parser) where T : ITagParser
@@ -82,6 +95,18 @@ namespace MarkdownFromHtml
                 }
             }
             list.Add(parser);
+        }
+
+        private void RegisterRequestEscapeCharacter(IRequestEscapeCharacter req)
+        {
+            foreach (var ch in req.EscapeCharTarget)
+                _escape.Register(ch);
+        }
+
+        private void RegisterRequestEscapeString(IRequestEscapeString req)
+        {
+            foreach (var ch in req.EscapeStringTarget)
+                _escape.Register(ch);
         }
 
         /// <summary>
@@ -258,13 +283,17 @@ namespace MarkdownFromHtml
 
                             if (now is Linebreak)
                             {
-                                prev!.TrimEnd();
+                                prev.TrimEnd();
 
                                 if (list.MoveNext())
                                 {
                                     now = list.Current;
                                     now.TrimStart();
                                 }
+                            }
+                            else if (prev.EndsWithSpace())
+                            {
+                                now.TrimStart();
                             }
 
                             prev = now;

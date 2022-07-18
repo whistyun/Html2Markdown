@@ -7,7 +7,7 @@ namespace MarkdownFromHtml.Utils
     {
         public static string[] SplitLine(this string text) => text.Split('\n');
 
-        internal static bool TryDecode(this string text, ref int start, out string decoded)
+        public static bool TryDecode(this string text, ref int start, out string decoded)
         {
             //  max length of entity is 33 (&CounterClockwiseContourIntegral;)
             var hit = text.IndexOf(';', start, Math.Min(text.Length - start, 40));
@@ -34,6 +34,25 @@ namespace MarkdownFromHtml.Utils
 
 
             return true;
+        }
+
+        public static int CountContinuous(this string text, char target, int startAt = 0)
+        {
+            int max = 0;
+            for (int i = startAt; i < text.Length; ++i)
+            {
+                if (text[i] != target) continue;
+
+                int j = i + 1;
+                for (; j < text.Length; ++j)
+                {
+                    if (text[j] != target) break;
+                }
+
+                max = Math.Max(max, j - i);
+            }
+
+            return max;
         }
     }
 }

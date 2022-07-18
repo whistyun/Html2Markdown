@@ -7,9 +7,11 @@ using System.Linq;
 
 namespace MarkdownFromHtml.Parsers
 {
-    public class HyperlinkParser : ISimpleTagParser
+    public class HyperlinkParser : ISimpleTagParser, IRequestEscapeCharacter
     {
         public IEnumerable<string> SupportTag => new[] { "a" };
+
+        public IEnumerable<char> EscapeCharTarget => "[]()".ToCharArray();
 
         public bool TryReplace(HtmlNode node, ReplaceManager manager, out IEnumerable<IMdElement> generated)
         {

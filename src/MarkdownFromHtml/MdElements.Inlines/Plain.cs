@@ -8,7 +8,7 @@ namespace MarkdownFromHtml.MdElements.Inlines
     {
         public string Content { private set; get; }
 
-        public Plain(string text)
+        public Plain(string text, EscapeManager? man)
         {
             bool alreadySpaced = false;
 
@@ -35,7 +35,11 @@ namespace MarkdownFromHtml.MdElements.Inlines
                     continue;
                 }
 
-                buff.Append(c);
+                if (man is not null && man.IsTarget(text, ref i, out string escaped))
+                    buff.Append(escaped);
+
+                else
+                    buff.Append(c);
             }
 
             Content = buff.ToString();
@@ -44,6 +48,8 @@ namespace MarkdownFromHtml.MdElements.Inlines
         public void TrimStart() => Content = Content.TrimStart();
 
         public void TrimEnd() => Content = Content.TrimEnd();
+
+        public bool EndsWithSpace() => Content.Length > 0 && Char.IsWhiteSpace(Content[Content.Length - 1]);
 
         public string ToMarkdown() => Content;
     }

@@ -26,5 +26,7 @@ namespace MarkdownFromHtml.MdElements.Inlines
         {
             Html = Html.TrimStart();
         }
+
+        public bool EndsWithSpace() => false;
     }
 }

@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using MarkdownFromHtml.Utils;
 
 namespace MarkdownFromHtml.MdElements.Blocks
 {
     public class CodeBlock : IMdBlock
     {
+        public string Tag { get; }
         public string Lang { get; }
         public string Code { get; }
 
@@ -31,15 +35,18 @@ namespace MarkdownFromHtml.MdElements.Blocks
             }
 
             Code = buff.ToString();
+
+            int tagCnt = Math.Max(3, Code.CountContinuous('`') + 1);
+            Tag = new string('`', tagCnt);
         }
 
 
         public IEnumerable<string> ToMarkdown()
         {
             return new string[] {
-                "```" + Lang,
+                Tag  + Lang,
                 Code,
-                "```"
+                Tag
             };
         }
     }

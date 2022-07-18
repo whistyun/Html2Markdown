@@ -14,7 +14,7 @@ namespace MarkdownFromHtml.Parsers
         {
             if (node is HtmlTextNode textNode)
             {
-                generated = new[] { new Plain(textNode.Text) };
+                generated = new[] { new Plain(textNode.Text, manager.Escape) };
                 return true;
             }
 

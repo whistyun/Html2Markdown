@@ -16,5 +16,7 @@
         /// Returns text in markdown syntax. It may contain line breaks.
         /// </summary>
         string ToMarkdown();
+
+        bool EndsWithSpace();
     }
 }

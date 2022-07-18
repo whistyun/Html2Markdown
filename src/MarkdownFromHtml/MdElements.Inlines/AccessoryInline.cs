@@ -9,55 +9,93 @@ namespace MarkdownFromHtml.MdElements.Inlines
     {
         public string Tag { get; }
         public IEnumerable<IMdInline> Content { get; }
+        public bool DriveOutSpace { get; }
 
-        public AccessoryInline(string tag, IEnumerable<IMdInline> content)
+        public AccessoryInline(string tag, IEnumerable<IMdInline> content) : this(tag, content, true)
+        {
+        }
+
+        public AccessoryInline(string tag, IEnumerable<IMdInline> content, bool driveOutSpace)
         {
             Tag = tag;
             Content = content;
+            DriveOutSpace = driveOutSpace;
         }
 
-        public void TrimStart() => Content.FirstOrDefault()?.TrimStart();
+        public void TrimStart()
+        {
+            if (DriveOutSpace) Content.FirstOrDefault()?.TrimStart();
+        }
 
-        public void TrimEnd() => Content.LastOrDefault()?.TrimStart();
+        public void TrimEnd()
+        {
+            if (DriveOutSpace) Content.LastOrDefault()?.TrimEnd();
+        }
+
+        public bool EndsWithSpace()
+        {
+            if (!DriveOutSpace) return false;
+
+            var end = Content.LastOrDefault();
+
+            if (end is null) return false;
+
+            return end.EndsWithSpace();
+        }
+
+
 
         public virtual string ToMarkdown()
         {
             var buff = new StringBuilder();
-            foreach (var cnt in Content)
-                buff.Append(cnt.ToMarkdown());
 
 
-            var headSpaceCounter = 0;
-            foreach (var i in Enumerable.Range(0, buff.Length))
+            if (DriveOutSpace)
             {
-                if (Char.IsWhiteSpace(buff[i]))
+                foreach (var cnt in Content)
+                    buff.Append(cnt.ToMarkdown());
+
+                var headSpaceCounter = 0;
+                foreach (var i in Enumerable.Range(0, buff.Length))
                 {
-                    headSpaceCounter++;
+                    if (Char.IsWhiteSpace(buff[i]))
+                    {
+                        headSpaceCounter++;
+                    }
+                    else break;
                 }
-                else break;
-            }
 
-            var tailSpaceCounter = 0;
-            foreach (var i in Enumerable.Range(0, buff.Length).Reverse())
-            {
-                if (Char.IsWhiteSpace(buff[i]))
+                var tailSpaceCounter = 0;
+                foreach (var i in Enumerable.Range(0, buff.Length).Reverse())
                 {
-                    tailSpaceCounter++;
+                    if (Char.IsWhiteSpace(buff[i]))
+                    {
+                        tailSpaceCounter++;
+                    }
+                    else break;
                 }
-                else break;
+
+                buff.Insert(headSpaceCounter, Tag);
+                if (headSpaceCounter > 1)
+                {
+                    buff.Remove(0, headSpaceCounter - 1);
+                }
+
+
+                buff.Insert(buff.Length - tailSpaceCounter, Tag);
+                if (tailSpaceCounter > 1)
+                {
+                    buff.Remove(buff.Length - tailSpaceCounter, tailSpaceCounter - 1);
+                }
             }
-
-            buff.Insert(headSpaceCounter, Tag);
-            if (headSpaceCounter > 1)
+            else
             {
-                buff.Remove(0, headSpaceCounter - 1);
-            }
+                buff.Append(Tag);
 
+                foreach (var cnt in Content)
+                    buff.Append(cnt.ToMarkdown());
 
-            buff.Insert(buff.Length - tailSpaceCounter, Tag);
-            if (tailSpaceCounter > 1)
-            {
-                buff.Remove(buff.Length - tailSpaceCounter, tailSpaceCounter - 1);
+                buff.Append(Tag);
             }
 
             return buff.ToString();

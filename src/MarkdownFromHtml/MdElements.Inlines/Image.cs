@@ -24,6 +24,8 @@ namespace MarkdownFromHtml.MdElements.Inlines
 
         public void TrimEnd() => Alt?.TrimEnd();
 
+        public bool EndsWithSpace() => false;
+
         public string ToMarkdown() => $"![{(Alt is null ? "" : Alt)}]({Src}{(Title is null ? "" : @$" ""{Title}""")})";
     }
 }
