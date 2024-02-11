@@ -1,0 +1,161 @@
+<!--
+This document is copied from Markdown.Avalonia wiki.
+
+
+https://github.com/whistyun/Markdown.Avalonia/wiki
+-->
+<h1>How to customise style</h1>
+<p>Markdown.Avalonia enable apply style to elements rendered in markdown.
+You can set style to <code>MarkdownScrollViewer.Styles</code> to change it.</p>
+<h2>Sample</h2>
+<pre><code class="language-xml">&lt;!--
+    xmlns:md=&quot;clr-namespace:Markdown.Avalonia;assembly=Markdown.Avalonia&quot;
+    xmlns:ctxt=&quot;clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia&quot;
+--&gt;
+
+&lt;md:MarkdownScrollViewer&gt;
+    &lt;md:MarkdownScrollViewer.Styles&gt;
+        &lt;Style Selector=&quot;ctxt|CTextBlock.Heading1&quot;&gt;
+            &lt;Setter Property=&quot;Foreground&quot; Value=&quot;AliceBlue&quot;/&gt;
+            &lt;Setter Property=&quot;Background&quot; Value=&quot;DarkBlue&quot;/&gt;
+        &lt;/Style&gt;
+
+        &lt;Style Selector=&quot;.Blockquote ctxt|CTextBlock.Heading1&quot;&gt;
+            &lt;Setter Property=&quot;FontSize&quot; Value=&quot;13&quot;/&gt;
+        &lt;/Style&gt;
+    &lt;/md:MarkdownScrollViewer.Styles&gt;
+
+    # Heading1
+
+    ## Heading2
+
+    The quick brown fox jumps over the lazy dog.
+
+    &gt; #blockquote
+    &gt; p&gt;. and enhance syntax
+&lt;/md:MarkdownScrollViewer&gt;
+</code></pre>
+<h2>Pages by elements</h2>
+<ul>
+<li><a href="How-to-customise-style-Blockquote">Blockquote</a></li>
+<li><a href="How-to-customise-style-Code">Code</a></li>
+<li><a href="How-to-customise-style-Headers">Header</a></li>
+<li><a href="How-to-customise-style-HorizontalRules">Horizontal Rules</a></li>
+<li><a href="How-to-customise-style-Hyperlink">Hyperlink</a></li>
+<li><a href="How-to-customise-style-Image">Image</a></li>
+<li><a href="How-to-customise-style-List">List</a></li>
+<li>Note</li>
+<li><a href="How-to-customise-style-Table">Table</a></li>
+</ul>
+<h2>Simple way to check style</h2>
+<p>If you use visualstudio, <a href="https://marketplace.visualstudio.com/items?itemName=AvaloniaTeam.AvaloniaforVisualStudio">AvaloniaforVisualStudio</a> show you effect of style.</p>
+<p><img src="img/ViewOnVisualStudio.png" alt="vs" /></p>
+<h1>How to customise style Blockquote</h1>
+<h2>Abstract</h2>
+<p>Blockquote are created as Border which has 'Blockquote' class.</p>
+<p><img src="img/blockquotee-structure.png" alt="" /></p>
+<h2>Example</h2>
+<h3>Style</h3>
+<pre><code class="language-xml">&lt;!--
+    xmlns:ctxt=&quot;clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia&quot;
+--&gt;
+
+&lt;Style Selector=&quot;Border.Blockquote&quot;&gt;
+    &lt;Setter Property=&quot;BorderBrush&quot; Value=&quot;Red&quot; /&gt;
+    &lt;Setter Property=&quot;Background&quot; Value=&quot;Pink&quot; /&gt;
+    &lt;Setter Property=&quot;BorderThickness&quot; Value=&quot;4,12,8,16&quot;/&gt;
+    &lt;Setter Property=&quot;CornerRadius&quot; Value=&quot;20&quot;/&gt;
+&lt;/Style&gt;
+
+</code></pre>
+<h3>Markdown</h3>
+<pre><code class="language-md">&gt; ## heading in blockquote
+&gt; some tex in blockquote
+&gt; * listitem1
+&gt; * listitem2
+</code></pre>
+<h3>View</h3>
+<p><img src="img/BlockquoteView.png" alt="view" /></p>
+<h1>How to customise style CCode</h1>
+<h2>Abstract</h2>
+<p>In Markdown.Avalonia, CCode is used for inline code.
+For now code block is displaied by <code>TextBlock.CodeBlock</code>.</p>
+<h2>Example</h2>
+<h3>style</h3>
+<pre><code class="language-xml">&lt;Style Selector=&quot;Border.CodeBlock&quot;&gt;
+    &lt;Style.Setters&gt;
+        &lt;Setter Property=&quot;BorderBrush&quot;     Value=&quot;Blue&quot;/&gt;
+        &lt;Setter Property=&quot;BorderThickness&quot; Value=&quot;0,5,0,5&quot;/&gt;
+        &lt;Setter Property=&quot;Margin&quot;          Value=&quot;5,0,5,0&quot;/&gt;
+        &lt;Setter Property=&quot;Background&quot;      Value=&quot;LightBlue&quot;/&gt;
+    &lt;/Style.Setters&gt;
+&lt;/Style&gt;
+&lt;Style Selector=&quot;TextBlock.CodeBlock&quot;&gt;
+    &lt;Style.Setters&gt;
+        &lt;Setter Property=&quot;Foreground&quot;      Value=&quot;DarkBlue&quot;/&gt;
+        &lt;Setter Property=&quot;FontFamily&quot;       Value=&quot;Meiryo&quot;/&gt;
+    &lt;/Style.Setters&gt;
+&lt;/Style&gt;
+
+&lt;Style Selector=&quot;ctxt|CCode&quot;&gt;
+    &lt;Style.Setters&gt;
+        &lt;Setter Property=&quot;BorderBrush&quot; Value=&quot;Green&quot;/&gt;
+        &lt;Setter Property=&quot;BorderThickness&quot; Value=&quot;2&quot;/&gt;
+        &lt;Setter Property=&quot;Padding&quot; Value=&quot;2&quot;/&gt;
+        &lt;Setter Property=&quot;MonospaceFontFamily&quot; Value=&quot;Meiryo&quot; /&gt;
+        &lt;Setter Property=&quot;Foreground&quot; Value=&quot;DarkGreen&quot; /&gt;
+        &lt;Setter Property=&quot;Background&quot; Value=&quot;LightGreen&quot; /&gt;
+    &lt;/Style.Setters&gt;
+&lt;/Style&gt;
+</code></pre>
+<h3>markdown</h3>
+<pre><code class="language-md">inline code: `this is inline.`
+
+```c
+#include &lt;stdio.h&gt;
+int main()
+{
+   // printf() displays the string inside quotation
+   printf(&quot;Hello, World!&quot;);
+   return 0;
+}
+```
+</code></pre>
+<h3>view</h3>
+<p><img src="img/CodeView.png" alt="view" /></p>
+<h2>Support Styles(CCode)</h2>
+<h3>Basic</h3>
+<ul>
+<li>Foreground</li>
+<li>Background</li>
+<li><del>FontFamily</del>: It's not work correctly.</li>
+<li>FontWeight</li>
+<li>FontSize</li>
+<li>FontStyle</li>
+<li>BorderThickness</li>
+<li>BorderBrushProperty</li>
+<li>CornerRadiusProperty</li>
+<li>BoxShadowProperty</li>
+<li>PaddingProperty</li>
+<li>MarginProperty</li>
+</ul>
+<h3>Others</h3>
+<ul>
+<li><p>IsUnderline</p>
+<p>If true is set, draw line under the text.</p>
+</li>
+<li><p>IsStrikethrough</p>
+<p>If true is set, draw strikethrough in the text.</p>
+</li>
+<li><p>MonospaceFontFamily</p>
+<p>In CCode, this is treat as FontFamily.</p>
+</li>
+</ul>
+<h1>How to customise style Code</h1>
+<h2>Abstract</h2>
+<p>In Markdown.Avalonia, CCode is used for inline code. For now code block is displaied by <code>TextBlock.CodeBlock</code>.</p>
+<p><img src="img/code-structure.png" alt="" /></p>
+<h3>v0.10.2 or later</h3>
+<p>Markdown.Avalonia uses <a href="https://github.com/AvaloniaUI/AvaloniaEdit">AvaloniaEdit</a> when the language to be used for syntax highlighting is defined.</p>
+<p><code>AvaloniaEdit.TextEditor</code> is used insted of <code>TextBlock.CodeBlock</code>.</p>
+<p><img src="img/code-structure-above.0.10.2.png" alt="" /></p>
