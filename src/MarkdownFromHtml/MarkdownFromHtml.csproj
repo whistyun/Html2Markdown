@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net472;netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>
+    <TargetFrameworks>net472;netstandard2.0;netstandard2.1;net5.0;net7.0</TargetFrameworks>
     <Authors>Simon Baynes, whistyun</Authors>
     <PackageLicenseUrl>https://www.apache.org/licenses/LICENSE-2.0</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/whistyun/MarkdownFromHtml</PackageProjectUrl>

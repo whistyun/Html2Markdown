@@ -5,11 +5,9 @@ using System.Collections.Generic;
 
 namespace MarkdownFromHtml.Parsers
 {
-    public class BoldParser : SimpleInlineParser, IRequestEscapeCharacter, IRequestEscapeString
+    public class BoldParser : SimpleInlineParser, IRequestEscapeString
     {
-        public IEnumerable<char> EscapeCharTarget => new[] { '>' };
-
-        public IEnumerable<string> EscapeStringTarget => new[] { "**" };
+        public IEnumerable<string> EscapeStringTarget => new[] { "**", "__" };
 
         public BoldParser() : base("b", "strong") { }
 
