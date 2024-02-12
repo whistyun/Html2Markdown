@@ -8,7 +8,7 @@
     <Description>A library for converting HTML to markdown syntax in C#</Description>
     <Copyright>Simon Baynes 2013, whistyun 2022</Copyright>
     <PackageTags>Markdown;Html;Convert;htmltomarkdown;html2markdown</PackageTags>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
 
     <LangVersion>9</LangVersion>
     <Nullable>enable</Nullable>
