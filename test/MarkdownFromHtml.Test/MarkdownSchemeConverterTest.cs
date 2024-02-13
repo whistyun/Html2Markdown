@@ -12,6 +12,14 @@ namespace MarkdownFromHtml.Test
         #region Links
 
         [Test]
+        public Task Convert_WhenThereAreHtmlLinks_WithoutHyperlink()
+        {
+            const string html = @"So this is <a name=""http://www.simonbaynes.com/"">a link</a>. Convert it";
+
+            return CheckConversion(html);
+        }
+
+        [Test]
         public Task Convert_WhenThereAreHtmlLinks_ThenConvertToMarkDownLinks()
         {
             const string html = @"So this is <a href=""http://www.simonbaynes.com/"">a link</a>. Convert it";

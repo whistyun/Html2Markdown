@@ -1,1 +1,0 @@
-﻿So this is <a name="curio"></a> and so is [this](http://www.google.com/). Convert them

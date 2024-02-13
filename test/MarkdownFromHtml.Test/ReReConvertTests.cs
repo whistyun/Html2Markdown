@@ -1,19 +1,12 @@
 ﻿using Markdig;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.DocAsCode.MarkdigEngine.Extensions;
 using System.Reflection;
-using HtmlAgilityPack;
 using System.Text.RegularExpressions;
-using MarkdownFromHtml.Parsers;
 using MarkdownFromHtml.Parsers.MarkdigExtensions;
-using VerifyNUnit;
 using System.Runtime.CompilerServices;
+using NUnit.Framework.Legacy;
 
 namespace MarkdownFromHtml.Test
 {
@@ -42,7 +35,7 @@ namespace MarkdownFromHtml.Test
             var reMdtxt = converter.Convert(htmltxt);
 
             var reHtmltxt = Markdown.ToHtml(reMdtxt);
-            Assert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
+            ClassicAssert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
         }
 
         [Test]
@@ -55,7 +48,7 @@ namespace MarkdownFromHtml.Test
             var reMdtxt = converter.Convert(htmltxt);
 
             var reHtmltxt = MarkdownToHtml(reMdtxt);
-            Assert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
+            ClassicAssert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
         }
 
         [Test]
@@ -82,7 +75,7 @@ namespace MarkdownFromHtml.Test
 
             var reHtmltxt = MarkdownToHtml(reMdtxt);
 
-            Assert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
+            ClassicAssert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
         }
 
         [Test]
@@ -102,7 +95,7 @@ namespace MarkdownFromHtml.Test
 
             var reHtmltxt = MarkdownToHtml(reMdtxt);
 
-            Assert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
+            ClassicAssert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
         }
 
         [Test]
@@ -130,7 +123,7 @@ namespace MarkdownFromHtml.Test
 
             var reHtmltxt = MarkdownToHtml(reMdtxt);
 
-            Assert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
+            ClassicAssert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
         }
 
         [Test]
@@ -159,7 +152,7 @@ namespace MarkdownFromHtml.Test
 
             var reHtmltxt = MarkdownToHtml(reMdtxt);
 
-            Assert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
+            ClassicAssert.AreEqual(Normalize(htmltxt), Normalize(reHtmltxt));
         }
 
 
