@@ -23,6 +23,10 @@ namespace MarkdownFromHtml.Parsers.MarkdigExtensions
             if (theadRows is null)
                 return false;
 
+            if (theadRows.Count > 1)
+                return false;
+
+
             var headGrp = TableRows2Block(theadRows, manager);
             if (headGrp is null)
                 return false;
@@ -42,21 +46,14 @@ namespace MarkdownFromHtml.Parsers.MarkdigExtensions
             }
 
 
-            List<IMdBlock>[]? footGrp = null;
             var tfootRows = node.SelectNodes("./tfoot/tr");
             if (tfootRows is not null)
             {
-                footGrp = TableRows2Block(tfootRows, manager);
-                if (footGrp is null)
-                    return false;
+                return false;
             }
 
             var headStyle = ParseColumnStyle(theadRows.First());
             var details = headGrp.Skip(1).Concat(bodyGrp);
-            if (footGrp is not null)
-            {
-                details = details.Concat(footGrp);
-            }
 
             generated = new[] { new PipeTableBlock(headStyle, headGrp.First(), details) };
             return true;

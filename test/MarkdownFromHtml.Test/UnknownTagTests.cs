@@ -1,5 +1,6 @@
 ﻿using MarkdownFromHtml.Parsers.MarkdigExtensions;
 using NUnit.Framework;
+using NUnit.Framework.Legacy;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -127,7 +128,7 @@ namespace MarkdownFromHtml.Test
             }
             catch (UnknownTagException e)
             {
-                Assert.AreEqual("center", e.TagName);
+                ClassicAssert.AreEqual("center", e.TagName);
             }
         }
 

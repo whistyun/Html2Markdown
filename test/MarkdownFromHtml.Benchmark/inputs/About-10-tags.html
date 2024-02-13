@@ -1,0 +1,28 @@
+<!--
+This document is copied from Markdown.Avalonia wiki.
+
+https://github.com/whistyun/Markdown.Avalonia/wiki/How-to-customise-style-Blockquote
+-->
+<h2>Abstract</h2>
+<p>Blockquote are created as Border which has 'Blockquote' class.</p>
+<p><img src="img/blockquotee-structure.png" alt="" /></p>
+<h2>Example</h2>
+<h3>Style</h3>
+<pre><code class="language-xml">&lt;!--
+    xmlns:ctxt=&quot;clr-namespace:ColorTextBlock.Avalonia;assembly=ColorTextBlock.Avalonia&quot;
+--&gt;
+
+&lt;Style Selector=&quot;Border.Blockquote&quot;&gt;
+    &lt;Setter Property=&quot;BorderBrush&quot; Value=&quot;Red&quot; /&gt;
+    &lt;Setter Property=&quot;Background&quot; Value=&quot;Pink&quot; /&gt;
+    &lt;Setter Property=&quot;BorderThickness&quot; Value=&quot;4,12,8,16&quot;/&gt;
+    &lt;Setter Property=&quot;CornerRadius&quot; Value=&quot;20&quot;/&gt;
+&lt;/Style&gt;
+
+</code></pre>
+<h3>Markdown</h3>
+<pre><code class="language-md">&gt; ## heading in blockquote
+&gt; some tex in blockquote
+&gt; * listitem1
+&gt; * listitem2
+</code></pre>

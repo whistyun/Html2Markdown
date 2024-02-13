@@ -6,6 +6,8 @@ using MarkdownFromHtml.Utils;
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace MarkdownFromHtml
 {
@@ -45,7 +47,7 @@ namespace MarkdownFromHtml
 
         public UnknownTagsOption UnknownTags { get; set; }
 
-        public EscapeManager Escape { get; }
+        public EscapeManager Escape => _escape;
 
         public void Register(ISimpleTagParser parser)
         {

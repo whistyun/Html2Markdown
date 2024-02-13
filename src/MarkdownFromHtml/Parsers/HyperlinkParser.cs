@@ -7,11 +7,11 @@ using System.Linq;
 
 namespace MarkdownFromHtml.Parsers
 {
-    public class HyperlinkParser : ISimpleTagParser, IRequestEscapeCharacter
+    public class HyperlinkParser : ISimpleTagParser, IRequestEscapeString
     {
         public IEnumerable<string> SupportTag => new[] { "a" };
 
-        public IEnumerable<char> EscapeCharTarget => "[]()".ToCharArray();
+        public IEnumerable<string> EscapeStringTarget => new string[] { "](" };
 
         public bool TryReplace(HtmlNode node, ReplaceManager manager, out IEnumerable<IMdElement> generated)
         {
@@ -21,7 +21,7 @@ namespace MarkdownFromHtml.Parsers
             if (link is null || !content.All(nd => nd is IMdInline))
             {
                 generated = Array.Empty<IMdElement>();
-                return true;
+                return false;
             }
 
             generated = new[] { new Hyperlink(content.Cast<IMdInline>(), link, title) };

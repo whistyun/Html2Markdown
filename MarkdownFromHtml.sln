@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32428.217
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{EB3836D8-535F-4A5A-803B-5FF008DF072F}"
 EndProject
@@ -10,7 +10,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{0E30007D-D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownFromHtml.Test", "test\MarkdownFromHtml.Test\MarkdownFromHtml.Test.csproj", "{AA6A2578-6242-4A61-BB39-5CE31629694D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarkdownFromHtml.Benchmark", "test\MarkdownFromHtml.Benchmark\MarkdownFromHtml.Benchmark.csproj", "{6DD4F073-3A72-4844-8A8E-E66F4804BDA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MarkdownFromHtml.Benchmark", "test\MarkdownFromHtml.Benchmark\MarkdownFromHtml.Benchmark.csproj", "{6DD4F073-3A72-4844-8A8E-E66F4804BDA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoOfMarkdownFromHtml", "test\DemoOfMarkdownFromHtml\DemoOfMarkdownFromHtml.csproj", "{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +60,18 @@ Global
 		{6DD4F073-3A72-4844-8A8E-E66F4804BDA4}.Release|x64.Build.0 = Release|Any CPU
 		{6DD4F073-3A72-4844-8A8E-E66F4804BDA4}.Release|x86.ActiveCfg = Release|Any CPU
 		{6DD4F073-3A72-4844-8A8E-E66F4804BDA4}.Release|x86.Build.0 = Release|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Debug|x64.Build.0 = Debug|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Debug|x86.Build.0 = Debug|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Release|x64.ActiveCfg = Release|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Release|x64.Build.0 = Release|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Release|x86.ActiveCfg = Release|Any CPU
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,6 +80,7 @@ Global
 		{C9FD9805-7F8C-4942-92F5-FF3BB037DAD1} = {EB3836D8-535F-4A5A-803B-5FF008DF072F}
 		{AA6A2578-6242-4A61-BB39-5CE31629694D} = {0E30007D-D450-4B5D-9E25-98186FF08614}
 		{6DD4F073-3A72-4844-8A8E-E66F4804BDA4} = {0E30007D-D450-4B5D-9E25-98186FF08614}
+		{6D9A210B-6D1F-4AEE-B6E0-A25CF998A6DF} = {0E30007D-D450-4B5D-9E25-98186FF08614}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A8C4639-4B74-49FA-81F0-C00E4F5C150F}
